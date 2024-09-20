@@ -9,13 +9,41 @@ export default function GameScreen({ userInfo, onRestart }) {
   const [timeLeft, setTimeLeft] = useState(60);
   const [hintUsed, setHintUsed] = useState(false);
   const [timerId, setTimerId] = useState(null);
+  const [feedback, setFeedback] = useState(''); 
+  const [showFeedback, setShowFeedback] = useState(false); 
+  const [gameResult, setGameResult] = useState(null); 
 
   const handleUseHint = () => {
     // later
   };
   
   const handleSubmitGuess = () => {
-    // later
+    const userGuess = parseInt(guess);
+  
+    if (isNaN(userGuess) || userGuess < 1 || userGuess > 100) {
+      Alert.alert('Invalid input', 'Please enter a number between 1 and 100.');
+      return;
+    }
+    setAttemptsLeft((prevAttempts) => prevAttempts - 1);
+    if (userGuess === targetNumber) {
+      setGameResult('won');
+    } else {
+      setFeedback(userGuess > targetNumber ? 'lower' : 'higher');
+      setShowFeedback(true);
+    }
+    setGuess('');
+  };
+
+  const handleTryAgain = () => {
+    setShowFeedback(false);
+    if (attemptsLeft === 0) {
+      setGameResult('lost');
+    }
+  };
+  
+  const handleEndGame = () => {
+    setGameResult('lost');
+    setShowFeedback(false);
   };
 
   useEffect(() => {
@@ -79,6 +107,17 @@ export default function GameScreen({ userInfo, onRestart }) {
             </View>
           </View>
         )}
+        {showFeedback && (
+          <View style={styles.feedbackContainer}>
+            <Text style={styles.feedbackText}>
+              Your guess is too {feedback}! Try again.
+            </Text>
+          <View style={styles.buttonContainer}>
+            <Button title="Try Again" onPress={handleTryAgain} />
+            <Button title="End Game" onPress={handleEndGame} />
+          </View>
+          </View>
+        )}
     </View>
   );
 }
@@ -103,5 +142,21 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  feedbackContainer: {
+    marginTop: 20,
+    padding: 20,
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  feedbackText: {
+    fontSize: 18,
+    textAlign: 'center',
+    marginBottom: 20,
   },
 });
