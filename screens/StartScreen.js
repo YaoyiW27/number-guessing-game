@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Text, Button, Alert } from 'react-native';
 import Checkbox from 'expo-checkbox';
 import Header from '../components/Header';
 import Input from '../components/Input';
 
-export default function StartScreen({ appName }) {
+export default function StartScreen({ appName, onRegister, userInfo }) {
   const [name, setName] = useState('');
   const [nameError, setNameError] = useState('');
   const [email, setEmail] = useState('');
@@ -12,6 +12,14 @@ export default function StartScreen({ appName }) {
   const [phone, setPhone] = useState('');
   const [phoneError, setPhoneError] = useState('');
   const [isChecked, setIsChecked] = useState(false);
+
+  useEffect(() => {
+    if (userInfo) {
+      setName(userInfo.name);
+      setEmail(userInfo.email);
+      setPhone(userInfo.phone);
+    }
+  }, [userInfo]);
 
   const validateName = (text) => {
     if (/\d/.test(text) || text.length <= 1) {
@@ -53,7 +61,8 @@ export default function StartScreen({ appName }) {
 
   const handleRegister = () => {
     if (!nameError && !emailError && !phoneError && name && email && phone) {
-      Alert.alert('Registration successful');
+      const userData = { name, email, phone };
+      onRegister(userData);
     } else {
       Alert.alert('Please check the form for errors');
     }
