@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, Button } from 'react-native';
 
 export default function GameScreen({ userInfo, onRestart }) {
   const [targetNumber, setTargetNumber] = useState(null);
+  const [gameStarted, setGameStarted] = useState(false);
 
   useEffect(() => {
     if (userInfo) {
@@ -20,8 +21,16 @@ export default function GameScreen({ userInfo, onRestart }) {
 
   return (
     <View style={styles.container}>
-    <Text style={styles.debugText}>[Debug] Target Number: {targetNumber}</Text>
-      {/* later */}
+        {!gameStarted ? (
+          <>
+            <Text style={styles.text}>
+                Guess a number between 1 & 100 that is multiply of {userInfo.phone.slice(-1)}.
+            </Text>
+            <Button title="Start" onPress={() => setGameStarted(true)} />
+          </>
+        ) : (
+          <Text>Game Started!</Text>
+        )}
     </View>
   );
 }
