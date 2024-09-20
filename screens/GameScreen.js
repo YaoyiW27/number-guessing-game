@@ -4,7 +4,6 @@ import { View, StyleSheet } from 'react-native';
 export default function GameScreen({ userInfo, onRestart }) {
   return (
     <View style={styles.container}>
-      <Header name="Number Guessing Game" />
       {/* later */}
     </View>
   );
