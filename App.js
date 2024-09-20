@@ -13,6 +13,15 @@ export default function App() {
     setShowConfirm(true);
   };
 
+  const handleEdit = () => {
+    setShowConfirm(false);
+  };
+
+  const handleContinue = () => {
+    setShowConfirm(false);
+    // Continue to the game screen
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <StartScreen 
@@ -22,11 +31,9 @@ export default function App() {
       {showConfirm && (
         <ConfirmScreen 
           userInfo={userInfo}
-          onEdit={() => setShowConfirm(false)} 
-          onContinue={() => {
-            setShowConfirm(false);
-            // game logic here
-          }} />
+          onEdit={handleEdit} 
+          onContinue={handleContinue} 
+        />
       )}
     </SafeAreaView>
   );
