@@ -1,17 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import { StyleSheet, View, SafeAreaView } from 'react-native';
 import Header from './components/Header';
 
 export default function App() {
   const appName = 'Welcome'
 
-
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
-      <View style={styles.topView}>
-        <Header name={appName}></Header>
-      </View>
+        <View style={styles.topView}>
+          <Header name={appName}></Header>
+        </View>
     </SafeAreaView>
   );
 }
