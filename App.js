@@ -8,6 +8,8 @@ export default function App() {
   const appName = 'Welcome'
   const [name, setName] = useState('');
   const [nameError, setNameError] = useState('');
+  const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState('');
 
   const validateName = (text) => {
     if (/\d/.test(text) || text.length <= 1) {
@@ -16,6 +18,16 @@ export default function App() {
       setNameError('');
     }
     setName(text);
+  };
+
+  const validateEmail = (text) => {
+    const emailRegex = /\S+@\S+\.\S+/;
+    if (!emailRegex.test(text)) {
+      setEmailError('Please enter a valid email');
+    } else {
+      setEmailError('');
+    }
+    setEmail(text);
   };
 
   return (
@@ -28,6 +40,13 @@ export default function App() {
             value={name}
             onChangeText={validateName}
             error={nameError}
+          />
+          <Input
+            label="Email" 
+            value={email}
+            onChangeText={validateEmail}
+            error={emailError}
+            keyboardType="email-address"
           />
         </View>
     </SafeAreaView>
