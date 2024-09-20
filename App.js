@@ -10,6 +10,8 @@ export default function App() {
   const [nameError, setNameError] = useState('');
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
+  const [phone, setPhone] = useState('');
+  const [phoneError, setPhoneError] = useState('');
 
   const validateName = (text) => {
     if (/\d/.test(text) || text.length <= 1) {
@@ -30,6 +32,15 @@ export default function App() {
     setEmail(text);
   };
 
+  const validatePhone = (text) => {
+    if (!/^\d{10}$/.test(text) || /[01]/.test(text.slice(-1))) {
+      setPhoneError('Please enter a valid phone number');
+    } else {
+      setPhoneError('');
+    }
+      setPhone(text);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
@@ -47,6 +58,13 @@ export default function App() {
             onChangeText={validateEmail}
             error={emailError}
             keyboardType="email-address"
+          />
+          <Input
+            label="Phone"
+            value={phone}
+            onChangeText={validatePhone}
+            error={phoneError}
+            keyboardType="numeric"
           />
         </View>
     </SafeAreaView>
