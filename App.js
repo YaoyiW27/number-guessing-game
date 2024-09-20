@@ -7,6 +7,16 @@ import Input from './components/Input';
 export default function App() {
   const appName = 'Welcome'
   const [name, setName] = useState('');
+  const [nameError, setNameError] = useState('');
+
+  const validateName = (text) => {
+    if (/\d/.test(text) || text.length <= 1) {
+      setNameError('Please enter a valid name');
+    } else {
+      setNameError('');
+    }
+    setName(text);
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -16,7 +26,8 @@ export default function App() {
           <Input
             label="Name"
             value={name}
-            onChangeText={(text) => setName(text)}
+            onChangeText={validateName}
+            error={nameError}
           />
         </View>
     </SafeAreaView>

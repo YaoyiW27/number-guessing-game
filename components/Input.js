@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
   },
   errorText: {
-    color: 'red',
+    color: 'gray',
     fontSize: 12,
   },
 });
