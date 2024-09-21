@@ -36,9 +36,10 @@ const styles = StyleSheet.create({
     width: '80%',
     padding: 20,
     borderRadius: 10,
-    backgroundColor: '#fff',
+    backgroundColor: 'lightgary',
   },
   infoText: {
+    color: 'blue',
     fontSize: 18,
     marginVertical: 5,
   },

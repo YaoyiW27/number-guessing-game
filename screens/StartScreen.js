@@ -3,6 +3,8 @@ import { View, StyleSheet, Text, Button, Alert } from 'react-native';
 import Checkbox from 'expo-checkbox';
 import Header from '../components/Header';
 import Input from '../components/Input';
+import colors from '../components/StyleHelper';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default function StartScreen({ appName, onRegister, userInfo }) {
   const [name, setName] = useState('');
@@ -69,67 +71,100 @@ export default function StartScreen({ appName, onRegister, userInfo }) {
   };
 
   return (
-    <View style={styles.container}>
-      <Header name={appName} />
-      <Input
-        label="Name"
-        value={name}
-        onChangeText={validateName}
-        error={nameError}
-      />
-      <Input
-        label="Email"
-        value={email}
-        onChangeText={validateEmail}
-        error={emailError}
-        keyboardType="email-address"
-      />
-      <Input
-        label="Phone"
-        value={phone}
-        onChangeText={validatePhone}
-        error={phoneError}
-        keyboardType="numeric"
-      />
-      <View style={styles.checkboxContainer}>
-        <Checkbox
-          value={isChecked}
-          onValueChange={setIsChecked}
-          style={styles.checkbox}
-        />
-        <Text style={styles.label}>I am not a robot</Text>
+    <LinearGradient
+      colors={[colors.gradientStart, colors.gradientEnd]}
+      style={styles.container}>
+      <View style={styles.headerContainer}>
+        <Header name={appName} />
       </View>
-      <View style={styles.buttonContainer}>
-        <Button title="Reset" onPress={resetInputs} />
-        <Button
-          title="Register"
-          onPress={handleRegister}
-          disabled={!isChecked}
+      <View style={styles.formContainer}>
+        <Input
+          label="Name"
+          value={name}
+          onChangeText={validateName}
+          error={nameError}
+          style={styles.input}
         />
+        <Input
+          label="Email address"
+          value={email}
+          onChangeText={validateEmail}
+          error={emailError}
+          keyboardType="email-address"
+          style={styles.input}
+        />
+        <Input
+          label="Phone Number"
+          value={phone}
+          onChangeText={validatePhone}
+          error={phoneError}
+          keyboardType="numeric"
+          style={styles.input}
+        />
+        <View style={styles.checkboxContainer}>
+          <Checkbox
+            value={isChecked}
+            onValueChange={setIsChecked}
+            style={styles.checkbox}
+          />
+          <Text style={styles.label}>I am not a robot</Text>
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button title="Reset" onPress={resetInputs} />
+          <Button
+            title="Register"
+            onPress={handleRegister}
+            disabled={!isChecked}
+          />
+        </View>
       </View>
-    </View>
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
-    justifyContent: 'center',
+    flex: 1,
+    paddingHorizontal: 20,
+  },
+  headerContainer: {
+    alignItems: 'center', 
+    marginTop: 30, 
+  },
+  formContainer: {
+    width: '80%',
+    padding: 15,
+    backgroundColor: 'lightgray', 
+    borderRadius: 10, 
+    alignSelf: 'center', 
+    marginTop: 40, 
+    paddingVertical: 40, 
+  },
+  input: {
+    borderWidth: 1.5, 
+    borderBlockEndColor: 'black',
+    borderLeftColor: 'lightgray',
+    borderRightColor: 'lightgray',
+    borderTopColor: 'lightgray',
+    height: 40,
+    margin: 10,
   },
   checkboxContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 20,
+    width: '100%',
   },
   checkbox: {
     marginRight: 10,
   },
   label: {
-    fontSize: 13,
+    fontSize: 15,
   },
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    width: '100%',
     marginTop: 20,
   },
 });

@@ -18,7 +18,7 @@ export default function Input({ label, value, onChangeText, error, ...props }) {
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 10,
+    marginBottom: 20,
   },
   input: {
     borderBottomWidth: 1,
@@ -26,6 +26,6 @@ const styles = StyleSheet.create({
   },
   errorText: {
     color: 'gray',
-    fontSize: 12,
+    fontSize: 15,
   },
 });
