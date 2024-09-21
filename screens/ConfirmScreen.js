@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Modal, Button } from 'react-native';
+import { View, Text, StyleSheet, Modal, TouchableOpacity } from 'react-native';
 
 export default function ConfirmScreen({ visible, userInfo, onEdit, onContinue }) {
   return (
@@ -16,8 +16,12 @@ export default function ConfirmScreen({ visible, userInfo, onEdit, onContinue })
             </>
           )}
           <View style={styles.buttonContainer}>
-            <Button title="Go back" onPress={onEdit} />
-            <Button title="Continue" onPress={onContinue} />
+            <TouchableOpacity style={styles.button} onPress={onEdit}>
+              <Text style={styles.gobackButton}>Go Back</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={onContinue}>
+              <Text style={styles.continueButton}>Continue</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </View>
@@ -33,19 +37,37 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   card: {
-    width: '80%',
     padding: 20,
     borderRadius: 10,
-    backgroundColor: 'lightgary',
+    backgroundColor: 'lightgray',
+    alignItems: 'left',
+    justifyContent: 'center',
   },
   infoText: {
     color: 'blue',
     fontSize: 18,
     marginVertical: 5,
+    textAlign: 'left',
   },
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 20,
+    width: '100%',
+  },
+  button: {
+    flex: 1,
+    marginHorizontal: 10,
+    paddingHorizontal: 10,
+    alignItems: 'center',
+    borderRadius: 5,
+  },
+  gobackButton: {
+    color: 'red',
+    fontSize: 16,
+  },
+  continueButton: {
+    color: 'blue',
+    fontSize: 16,
   },
 });

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Text, Button, Alert } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Alert } from 'react-native';
 import Checkbox from 'expo-checkbox';
 import Header from '../components/Header';
 import Input from '../components/Input';
@@ -113,12 +113,16 @@ export default function StartScreen({ appName, onRegister, userInfo }) {
           <Text style={styles.label}>I am not a robot</Text>
         </View>
         <View style={styles.buttonContainer}>
-          <Button title="Reset" onPress={resetInputs} />
-          <Button
-            title="Register"
+          <TouchableOpacity style={styles.button} onPress={resetInputs}>
+            <Text style={styles.resetButton}>Reset</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
             onPress={handleRegister}
             disabled={!isChecked}
-          />
+          >
+            <Text style={styles.registerButton}>Register</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </LinearGradient>
@@ -137,8 +141,8 @@ const styles = StyleSheet.create({
   formContainer: {
     width: '80%',
     padding: 15,
+    borderRadius: 10,     
     backgroundColor: 'lightgray', 
-    borderRadius: 10, 
     alignSelf: 'center', 
     marginTop: 40, 
     paddingVertical: 40, 
@@ -149,7 +153,7 @@ const styles = StyleSheet.create({
   input: {
     borderWidth: 1.5, 
     color: 'blue',
-    borderBlockEndColor: 'blue',
+    borderBottomColor: 'blue',
     borderLeftColor: 'lightgray',
     borderRightColor: 'lightgray',
     borderTopColor: 'lightgray',
@@ -174,5 +178,20 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: '100%',
     marginTop: 20,
+  },
+  button: {
+    flex: 1,
+    marginHorizontal: 10,
+    paddingVertical: 10,
+    alignItems: 'center',
+    borderRadius: 5,
+  },
+  resetButton: {
+    color: 'red', 
+    fontSize: 16,
+  },
+  registerButton: {
+    color: 'blue', 
+    fontSize: 16,
   },
 });
