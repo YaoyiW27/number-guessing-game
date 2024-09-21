@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import Checkbox from 'expo-checkbox';
 import Header from '../components/Header';
 import Input from '../components/Input';
-import colors from '../components/StyleHelper';
+import { colors, styles } from '../components/StyleHelper';
 import { LinearGradient } from 'expo-linear-gradient';
 
 export default function StartScreen({ appName, onRegister, userInfo }) {
@@ -128,70 +128,3 @@ export default function StartScreen({ appName, onRegister, userInfo }) {
     </LinearGradient>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingHorizontal: 20,
-  },
-  headerContainer: {
-    alignItems: 'center', 
-    marginTop: 30, 
-  },
-  formContainer: {
-    width: '80%',
-    padding: 15,
-    borderRadius: 10,     
-    backgroundColor: 'lightgray', 
-    alignSelf: 'center', 
-    marginTop: 40, 
-    paddingVertical: 40, 
-  },
-  labelColor: { 
-    color: 'blue', 
-  },
-  input: {
-    borderWidth: 1.5, 
-    color: 'blue',
-    borderBottomColor: 'blue',
-    borderLeftColor: 'lightgray',
-    borderRightColor: 'lightgray',
-    borderTopColor: 'lightgray',
-    height: 40,
-    margin: 10,
-  },
-  checkboxContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 20,
-    width: '100%',
-  },
-  checkbox: {
-    marginRight: 10,
-  },
-  label: {
-    color: 'blue',
-    fontSize: 15,
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
-    marginTop: 20,
-  },
-  button: {
-    flex: 1,
-    marginHorizontal: 10,
-    paddingVertical: 10,
-    alignItems: 'center',
-    borderRadius: 5,
-  },
-  resetButton: {
-    color: 'red', 
-    fontSize: 16,
-  },
-  registerButton: {
-    color: 'blue', 
-    fontSize: 16,
-  },
-});

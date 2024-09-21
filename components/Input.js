@@ -1,9 +1,10 @@
 import React from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
+import { styles } from './StyleHelper';
 
 export default function Input({ label, value, onChangeText, labelStyle, error, ...props }) {
   return (
-    <View style={styles.container}>
+    <View style={styles.welcomeContainer}>
       <Text style={[styles.label, labelStyle]}>{label}</Text>
       <TextInput
         style={styles.input}
@@ -15,13 +16,3 @@ export default function Input({ label, value, onChangeText, labelStyle, error, .
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    marginVertical: 10,
-  },
-  errorText: {
-    color: 'gray',
-    fontSize: 15,
-  },
-});

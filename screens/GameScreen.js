@@ -1,16 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Button,
-  TextInput,
-  Image,
-  Alert,
-} from 'react-native';
+import { View, Text, Button, TextInput, Image, Alert } from 'react-native';
+import { colors } from '../components/StyleHelper';
+import { LinearGradient } from 'expo-linear-gradient';
+import { styles } from '../components/StyleHelper';
 
 export default function GameScreen({ userInfo, onRestart }) {
-  const [gameState, setGameState] = useState('start'); 
+  const [gameState, setGameState] = useState('start');
   const [secretNumber, setSecretNumber] = useState(null);
   const [userGuess, setUserGuess] = useState('');
   const [lastGuess, setLastGuess] = useState(null);
@@ -49,7 +44,7 @@ export default function GameScreen({ userInfo, onRestart }) {
     } else if (timeLeft === 0) {
       clearInterval(timer);
       setGameState('lose');
-      setGameOverMessage('Time is up!');
+      setGameOverMessage('You are out of time');
     }
     return () => clearInterval(timer);
   }, [gameState, timeLeft]);
@@ -102,50 +97,58 @@ export default function GameScreen({ userInfo, onRestart }) {
     generateSecretNumber();
   };
 
-  const renderStartCard = () => (
-    <View style={styles.card}>
-      <Text style={styles.text}>
-        Guess a number between 1 & 100 that is multiply
-        of {userInfo.phone.slice(-1)}
+  const startCard = () => (
+    <View style={styles.gameCard}>
+      <Text style={styles.gameText}>
+        Guess a number between 1 & 100 that is a multiple of{' '}
+        {userInfo.phone.slice(-1)}
       </Text>
-      <Button title="Start Game" onPress={() => setGameState('guessing')} />
+      <Button title="Start" onPress={() => setGameState('guessing')} />
     </View>
   );
 
-  const renderGuessingCard = () => (
-    <View style={styles.card}>
-      <Text style={styles.text}>Attempts left: {attemptsLeft}</Text>
-      <Text style={styles.text}>Timer: {timeLeft}s</Text>
+  const guessingCard = () => (
+    <View style={styles.gameCard}>
+      <Text style={styles.text}>
+        Guess a number between 1 & 100 that is multiply of{' '}
+        {userInfo.phone.slice(-1)}
+      </Text>
       <TextInput
-        style={styles.input}
+        style={styles.gameInput}
         value={userGuess}
         onChangeText={setUserGuess}
         keyboardType="numeric"
-        placeholder="Enter your guess"
       />
-      <View style={styles.buttonContainer}>
-        <Button title="Use a Hint" onPress={handleUseHint} disabled={hintUsed} />
+      <Text style={styles.grayText}>Attempts left: {attemptsLeft}</Text>
+      <Text style={styles.grayText}>Timer: {timeLeft}s</Text>
+      <View style={styles.gameButtonContainer}>
+        <Button
+          title="Use a Hint"
+          onPress={handleUseHint}
+          disabled={hintUsed}
+        />
         <Button title="Submit Guess" onPress={handleSubmitGuess} />
       </View>
     </View>
   );
 
-  const renderGuessedWrongCard = () => (
-    <View style={styles.card}>
-      <Text style={styles.text}>
-        Your guess is too {lastGuess > secretNumber ? 'high' : 'low'}!
+  const guessedWrongCard = () => (
+    <View style={styles.gameCard}>
+      <Text style={styles.gameText}>
+        You did not guess correct! 
+        You should guess {lastGuess > secretNumber ? 'lower' : 'higher'}!
       </Text>
-      <View style={styles.buttonContainer}>
+      <View style={styles.gameButtonContainer}>
         <Button title="Try Again" onPress={() => setGameState('guessing')} />
-        <Button title="End Game" onPress={() => setGameState('lose')} />
+        <Button title="End the Game" onPress={() => setGameState('lose')} />
       </View>
     </View>
   );
 
-  const renderWinCard = () => (
-    <View style={styles.card}>
-      <Text style={styles.text}>You guessed correct!</Text>
-      <Text style={styles.text}>Attempts used: {4 - attemptsLeft}</Text>
+  const winCard = () => (
+    <View style={styles.gameCard}>
+      <Text style={styles.gameText}>You guessed correct!</Text>
+      <Text style={styles.gameText}>Attempts used: {4 - attemptsLeft}</Text>
       <Image
         source={{ uri: `https://picsum.photos/id/${secretNumber}/100/100` }}
         style={styles.resultImage}
@@ -154,83 +157,45 @@ export default function GameScreen({ userInfo, onRestart }) {
     </View>
   );
 
-  const renderLoseCard = () => (
-    <View style={styles.card}>
-      <Text style={styles.text}>The game is over!</Text>
+  const loseCard = () => (
+    <View style={styles.gameCard}>
+      <Text style={styles.gameText}>The game is over!</Text>
       <Image
-        source={require('../assets/sad_face.jpg')} 
+        source={require('../assets/sad_face.jpg')}
         style={styles.resultImage}
       />
-      <Text style={styles.text}>{gameOverMessage}</Text>
+      <Text style={styles.gameText}>{gameOverMessage}</Text>
       <Button title="New Game" onPress={handleNewGame} />
     </View>
   );
 
-  const renderGameContent = () => {
+  const gameContent = () => {
     switch (gameState) {
       case 'start':
-        return renderStartCard();
+        return startCard();
       case 'guessing':
-        return renderGuessingCard();
+        return guessingCard();
       case 'guessedWrong':
-        return renderGuessedWrongCard();
+        return guessedWrongCard();
       case 'win':
-        return renderWinCard();
+        return winCard();
       case 'lose':
-        return renderLoseCard();
+        return loseCard();
       default:
         return <Text>Invalid Game State</Text>;
     }
   };
 
   return (
-    <View style={styles.container}>
-      <View style={{ alignItems: 'flex-end' }}>
-        <Button title="Restart" onPress={onRestart} />
+    <LinearGradient
+      colors={[colors.gradientStart, colors.gradientEnd]}
+      style={styles.gamContainer}>
+      <View style={styles.gamContainer}>
+        <View style={styles.restartButton}>
+          <Button title="Restart" onPress={onRestart} />
+        </View>
+        {gameContent()}
       </View>
-      {renderGameContent()}
-    </View>
+    </LinearGradient>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: '#fff',
-  },
-  card: {
-    marginTop: 20,
-    padding: 20,
-    backgroundColor: '#f8f8f8',
-    borderRadius: 10,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  text: {
-    fontSize: 18,
-    textAlign: 'center',
-    marginBottom: 10,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    padding: 10,
-    marginVertical: 10,
-    fontSize: 18,
-  },
-  buttonContainer: {
-    marginTop: 10,
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  resultImage: {
-    width: 100,
-    height: 100,
-    alignSelf: 'center',
-    marginVertical: 20,
-  },
-});

@@ -1,20 +1,11 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import { styles } from './StyleHelper'
 
 export default function Header({ name }) {
   return (
     <View>
-      <Text style={styles.text}>{name}</Text>
+      <Text style={styles.header}>{name}</Text>
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-    text: {
-      color: 'blue',
-      fontSize: 21,
-      fontWeight: 'bold', 
-      padding: 5,
-      marginBottom: 10,
-    },
-  });
