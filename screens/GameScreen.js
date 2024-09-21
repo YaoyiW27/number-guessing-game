@@ -109,7 +109,7 @@ export default function GameScreen({ userInfo, onRestart }) {
 
   const guessingCard = () => (
     <View style={styles.gameCard}>
-      <Text style={styles.text}>
+      <Text style={styles.gameText}>
         Guess a number between 1 & 100 that is multiply of{' '}
         {userInfo.phone.slice(-1)}
       </Text>
