@@ -1,11 +1,16 @@
 import React from 'react';
 import { View, Text, Modal, TouchableOpacity } from 'react-native';
-import { styles } from '../components/StyleHelper';
+import { LinearGradient } from 'expo-linear-gradient';
+import { styles, colors } from '../components/StyleHelper'; 
 
 export default function ConfirmScreen({ visible, userInfo, onEdit, onContinue }) {
   return (
     <Modal transparent={true} animationType="fade" visible={visible}>
-      <View style={styles.modalBackground}>
+      {/* Apply a semi-transparent gradient background */}
+      <LinearGradient
+        colors={[colors.gradientStart, colors.gradientEnd]}
+        style={[styles.modalBackground, { opacity: 0.9 }]} 
+      >
         <View style={styles.card}>
           {userInfo && (
             <>
@@ -25,7 +30,7 @@ export default function ConfirmScreen({ visible, userInfo, onEdit, onContinue })
             </TouchableOpacity>
           </View>
         </View>
-      </View>
+      </LinearGradient>
     </Modal>
   );
 }
