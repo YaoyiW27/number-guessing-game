@@ -78,12 +78,13 @@ export default function StartScreen({ appName, onRegister, userInfo }) {
         <Header name={appName} />
       </View>
       <View style={styles.formContainer}>
-        <Input
+        <Input 
           label="Name"
           value={name}
           onChangeText={validateName}
           error={nameError}
           style={styles.input}
+          labelStyle={styles.labelColor}
         />
         <Input
           label="Email address"
@@ -92,6 +93,7 @@ export default function StartScreen({ appName, onRegister, userInfo }) {
           error={emailError}
           keyboardType="email-address"
           style={styles.input}
+          labelStyle={styles.labelColor}
         />
         <Input
           label="Phone Number"
@@ -100,6 +102,7 @@ export default function StartScreen({ appName, onRegister, userInfo }) {
           error={phoneError}
           keyboardType="numeric"
           style={styles.input}
+          labelStyle={styles.labelColor}
         />
         <View style={styles.checkboxContainer}>
           <Checkbox
@@ -140,9 +143,13 @@ const styles = StyleSheet.create({
     marginTop: 40, 
     paddingVertical: 40, 
   },
+  labelColor: { 
+    color: 'blue', 
+  },
   input: {
     borderWidth: 1.5, 
-    borderBlockEndColor: 'black',
+    color: 'blue',
+    borderBlockEndColor: 'blue',
     borderLeftColor: 'lightgray',
     borderRightColor: 'lightgray',
     borderTopColor: 'lightgray',
@@ -159,6 +166,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   label: {
+    color: 'blue',
     fontSize: 15,
   },
   buttonContainer: {
