@@ -1,35 +1,43 @@
 import React from 'react';
-import { View, Text, Modal, TouchableOpacity } from 'react-native';
+import { View, Modal } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { styles, colors } from '../components/StyleHelper'; 
+import { styles, colors } from '../styles/StyleHelper';
+import Button from '../components/Button';
+import Text from '../components/Text';
+import Card from '../components/Card';
 
 export default function ConfirmScreen({ visible, userInfo, onEdit, onContinue }) {
   return (
     <Modal transparent={true} animationType="fade" visible={visible}>
-      {/* Apply a semi-transparent gradient background */}
       <LinearGradient
         colors={[colors.gradientStart, colors.gradientEnd]}
-        style={[styles.modalBackground, { opacity: 0.9 }]} 
+        style={[styles.modalBackground, { opacity: 0.9 }]}
       >
-        <View style={styles.card}>
+        <Card style={styles.card}>
           {userInfo && (
             <>
               <Text style={styles.infoText}>Hello {userInfo.name}</Text>
               <Text style={styles.infoText}>Here is the information you entered:</Text>
               <Text style={styles.infoText}>{userInfo.email}</Text>
               <Text style={styles.infoText}>{userInfo.phone}</Text>
-              <Text style={styles.infoText}>If it is not correct, please go back and edit them.</Text>
+              <Text style={styles.infoText}>
+                If it is not correct, please go back and edit them.
+              </Text>
             </>
           )}
           <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.button} onPress={onEdit}>
-              <Text style={styles.gobackButton}>Go Back</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={onContinue}>
-              <Text style={styles.continueButton}>Continue</Text>
-            </TouchableOpacity>
+            <Button
+              title="Go Back"
+              onPress={onEdit}
+              textStyle={styles.gobackButton}
+            />
+            <Button
+              title="Continue"
+              onPress={onContinue}
+              textStyle={styles.continueButton}
+            />
           </View>
-        </View>
+        </Card>
       </LinearGradient>
     </Modal>
   );

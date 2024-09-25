@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button, TextInput, Image, Alert } from 'react-native';
-import { colors } from '../components/StyleHelper';
+import { View, Text, Button, Image, Alert } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { styles } from '../components/StyleHelper';
+import { colors, styles } from '../styles/StyleHelper';
+import Card from '../components/Card';
+import Input from '../components/Input';
+
 
 export default function GameScreen({ userInfo, onRestart }) {
   const [gameState, setGameState] = useState('start');
@@ -98,30 +100,32 @@ export default function GameScreen({ userInfo, onRestart }) {
   };
 
   const startCard = () => (
-    <View style={styles.gameCard}>
+    <Card style={styles.card}>
       <Text style={styles.gameText}>
         Guess a number between 1 & 100 that is a multiple of{' '}
         {userInfo.phone.slice(-1)}
       </Text>
-      <Button title="Start" onPress={() => setGameState('guessing')} />
-    </View>
+      <View style={styles.buttonContainer}>
+        <Button title="Start" onPress={() => setGameState('guessing')} />
+      </View>
+    </Card>
   );
 
   const guessingCard = () => (
-    <View style={styles.gameCard}>
+    <Card style={styles.card}>
       <Text style={styles.gameText}>
         Guess a number between 1 & 100 that is multiply of{' '}
         {userInfo.phone.slice(-1)}
       </Text>
-      <TextInput
-        style={styles.gameInput}
+      <Input
+        style={styles.input}
         value={userGuess}
         onChangeText={setUserGuess}
         keyboardType="numeric"
       />
       <Text style={styles.grayText}>Attempts left: {attemptsLeft}</Text>
       <Text style={styles.grayText}>Timer: {timeLeft}s</Text>
-      <View style={styles.gameButtonContainer}>
+      <View style={styles.buttonContainer}>
         <Button
           title="Use a Hint"
           onPress={handleUseHint}
@@ -129,44 +133,48 @@ export default function GameScreen({ userInfo, onRestart }) {
         />
         <Button title="Submit Guess" onPress={handleSubmitGuess} />
       </View>
-    </View>
+    </Card>
   );
 
   const guessedWrongCard = () => (
-    <View style={styles.gameCard}>
+    <Card style={styles.card}>
       <Text style={styles.gameText}>
         You did not guess correct! 
         You should guess {lastGuess > secretNumber ? 'lower' : 'higher'}!
       </Text>
-      <View style={styles.gameButtonContainer}>
+      <View style={styles.buttonContainer}>
         <Button title="Try Again" onPress={() => setGameState('guessing')} />
         <Button title="End the Game" onPress={() => setGameState('lose')} />
       </View>
-    </View>
+    </Card>
   );
 
   const winCard = () => (
-    <View style={styles.gameCard}>
+    <Card style={styles.card}>
       <Text style={styles.gameText}>You guessed correct!</Text>
       <Text style={styles.gameText}>Attempts used: {4 - attemptsLeft}</Text>
       <Image
         source={{ uri: `https://picsum.photos/id/${secretNumber}/100/100` }}
         style={styles.resultImage}
-      />
-      <Button title="New Game" onPress={handleNewGame} />
-    </View>
+      /> 
+      <View style={styles.buttonContainer}>
+        <Button title="New Game" onPress={handleNewGame} />
+      </View>
+    </Card>
   );
 
   const loseCard = () => (
-    <View style={styles.gameCard}>
+    <Card style={styles.card}>
       <Text style={styles.gameText}>The game is over!</Text>
       <Image
         source={require('../assets/sad_face.jpg')}
         style={styles.resultImage}
       />
       <Text style={styles.gameText}>{gameOverMessage}</Text>
-      <Button title="New Game" onPress={handleNewGame} />
-    </View>
+      <View style={styles.buttonContainer}>
+        <Button title="New Game" onPress={handleNewGame} />
+      </View>
+    </Card>
   );
 
   const gameContent = () => {
@@ -189,8 +197,8 @@ export default function GameScreen({ userInfo, onRestart }) {
   return (
     <LinearGradient
       colors={[colors.gradientStart, colors.gradientEnd]}
-      style={styles.gamContainer}>
-      <View style={styles.gamContainer}>
+      style={styles.gameContainer}>
+      <View style={styles.gameContainer}>
         <View style={styles.restartButton}>
           <Button title="Restart" onPress={onRestart} />
         </View>

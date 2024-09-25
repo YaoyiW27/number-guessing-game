@@ -1,13 +1,22 @@
 import React from 'react';
-import { View, Text, TextInput, StyleSheet } from 'react-native';
-import { styles } from './StyleHelper';
+import { View, TextInput } from 'react-native';
+import Text from './Text';
+import { styles } from '../styles/StyleHelper';
 
-export default function Input({ label, value, onChangeText, labelStyle, error, ...props }) {
+export default function Input({
+  label,
+  value,
+  onChangeText,
+  labelStyle,
+  error,
+  style,
+  ...props
+}) {
   return (
-    <View style={styles.welcomeContainer}>
+    <View style={styles.inputContainer}>
       <Text style={[styles.label, labelStyle]}>{label}</Text>
       <TextInput
-        style={styles.input}
+        style={[styles.input, style]}
         value={value}
         onChangeText={onChangeText}
         {...props}

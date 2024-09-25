@@ -35,15 +35,16 @@ export default function App() {
         <GameScreen userInfo={userInfo} onRestart={handleRestart} />
       ) : (
         <>
-          <StartScreen 
-            appName={appName} 
-            onRegister={handleRegister} 
-            userInfo={userInfo} />
-          <ConfirmScreen 
+          <StartScreen
+            appName={appName}
+            onRegister={handleRegister}
+            userInfo={userInfo}
+          />
+          <ConfirmScreen
             visible={showConfirm}
             userInfo={userInfo}
-            onEdit={handleEdit} 
-            onContinue={handleContinue} 
+            onEdit={handleEdit}
+            onContinue={handleContinue}
           />
         </>
       )}

@@ -47,15 +47,18 @@ const styles = StyleSheet.create({
   labelColor: { 
     color: 'blue', 
   },
+  inputContainer: {
+    width: '100%', 
+    marginVertical: 10,
+  },
   input: {
-    borderWidth: 1.5, 
-    color: 'blue',
+    width: '100%', 
+    borderBottomWidth: 1.5,
     borderBottomColor: 'blue',
-    borderLeftColor: 'lightgray',
-    borderRightColor: 'lightgray',
-    borderTopColor: 'lightgray',
+    color: 'blue',
     height: 40,
-    margin: 10,
+    marginVertical: 5,
+    paddingHorizontal: 5,
   },
   checkboxContainer: {
     flexDirection: 'row',
@@ -106,7 +109,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 4,
     elevation: 5,
-    alignItems: 'left',
+    alignItems: 'center',
     justifyContent: 'center',
   },
   infoText: {
@@ -128,7 +131,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 40, 
   },
-  gamContainer: {
+  gameContainer: {
     flex: 1,
     width: '100%',
     justifyContent: 'center',
@@ -140,18 +143,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     marginEnd: -280,
   },
-  gameCard: {
-    width: '100%',
-    padding: 20,
-    borderRadius: 10,
-    backgroundColor: 'lightgray',
-    shadowColor: 'black',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
-    elevation: 5,
-    marginBottom: 20,
-  },
   gameText: {
     color: 'blue',
     fontSize: 18,
@@ -161,24 +152,9 @@ const styles = StyleSheet.create({
   grayText: {
     color: 'gray',
     fontSize: 15,
+    alignSelf: 'center',
     textAlign: 'center',
     marginBottom: 10,
-  },
-  gameInput: {
-    color: 'blue',
-    width: 50,
-    alignSelf: 'center',
-    borderBottomWidth: 1,
-    borderBottomColor: 'blue',
-    padding: 10,
-    marginVertical: 10,
-    fontSize: 18,
-    marginBottom: 20,
-  },
-  gameButtonContainer: {
-    marginTop: 10,
-    flexDirection: 'column',
-    alignItems: 'center',
   },
   resultImage: {
     width: 100,

@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, Alert } from 'react-native';
+import { View, Alert } from 'react-native';
 import Checkbox from 'expo-checkbox';
+import { colors, styles } from '../styles/StyleHelper';
+import { LinearGradient } from 'expo-linear-gradient';
 import Header from '../components/Header';
 import Input from '../components/Input';
-import { colors, styles } from '../components/StyleHelper';
-import { LinearGradient } from 'expo-linear-gradient';
+import Button from '../components/Button';
+import Text from '../components/Text';
+import Card from '../components/Card';
 
 export default function StartScreen({ appName, onRegister, userInfo }) {
   const [name, setName] = useState('');
@@ -73,12 +76,13 @@ export default function StartScreen({ appName, onRegister, userInfo }) {
   return (
     <LinearGradient
       colors={[colors.gradientStart, colors.gradientEnd]}
-      style={styles.container}>
+      style={styles.container}
+    >
       <View style={styles.headerContainer}>
         <Header name={appName} />
       </View>
-      <View style={styles.formContainer}>
-        <Input 
+      <Card style={styles.formContainer}>
+        <Input
           label="Name"
           value={name}
           onChangeText={validateName}
@@ -113,18 +117,19 @@ export default function StartScreen({ appName, onRegister, userInfo }) {
           <Text style={styles.label}>I am not a robot</Text>
         </View>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button} onPress={resetInputs}>
-            <Text style={styles.resetButton}>Reset</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
+          <Button
+            title="Reset"
+            onPress={resetInputs}
+            textStyle={styles.resetButton}
+          />
+          <Button
+            title="Register"
             onPress={handleRegister}
+            textStyle={styles.registerButton}
             disabled={!isChecked}
-          >
-            <Text style={styles.registerButton}>Register</Text>
-          </TouchableOpacity>
+          />
         </View>
-      </View>
+      </Card>
     </LinearGradient>
   );
 }
